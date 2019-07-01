@@ -105,7 +105,7 @@ table td.derch { background-color: #fcf8f2;
 <td width="48%" style="color:#0000BB;" text-align:"center">
 <img width="250" height="200" src="';
 
-        $html .= $_SERVER['DOCUMENT_ROOT'] . '/public/img/' . 'logo.jpg" align="middle"><br />
+        $html .= 'https://carrillosteam.com/public/img/logo.jpg" align="middle"><br />
 <table width="100%" style="font-family: serif;">
 <tr>
 <td class="izq">
@@ -226,9 +226,11 @@ table td.derch { background-color: #fcf8f2;
 
         $html .= $fuente['ruta'] . '</span></p><p><span color="#A52A2A"><strong>Destino : </strong></span><span color="#B8860B">';
 
-        $html .= $fuente['dirDestinatario'] . '</span></p><p><span color="#A52A2A"><strong>Identificacion Destinatario : </strong></span><span color="#B8860B">';
+        $html .= $fuente['dirDestinatario'] . '</span></p>';
+        $html .= '<p><span color="#A52A2A"><strong>Identificacion Destinatario : </strong></span><span color="#B8860B">';
 
-        $html .= $fuente['identificacionDestinatario'] . '</span></p><p><span color="#A52A2A"><strong>Razon Social Destinatario : </strong></span><span color="#B8860B">';
+        $html .= $fuente['identificacionDestinatario'] . '</span></p>';
+        $html .= '<p><span color="#A52A2A"><strong>Razon Social Destinatario : </strong></span><span color="#B8860B">';
 
         $html .= $fuente['razonSocialDestinatario'] . '</span></p></td>
 </tr>
@@ -239,10 +241,11 @@ table td.derch { background-color: #fcf8f2;
 <table class="items" width="100%" style="font-size: 8pt; border-collapse: collapse; " cellpadding="2">
 <thead>
 <tr>
-                <th align="center" width="24%" style="font-weight: bold;">CodigoPrincipal</th>
-                <th align="center" width="24%" style="font-weight: bold;">Codigo Auxiliar</th>
+                <th align="center" width="15%" style="font-weight: bold;">CodigoPrincipal</th>
+                <th align="center" width="10%" style="font-weight: bold;">Codigo Auxiliar</th>
+                <th align="center" width="25%" style="font-weight: bold;">Lotes Usados</th>
                 <th align="left" width="38%" style="font-weight: bold;">Descripcion</th>
-                <th align="right" width="14%" style="font-weight: bold;">Cantidad</th>
+                <th align="right" width="12%" style="font-weight: bold;">Cantidad</th>
 </tr>
 
 </thead>
@@ -252,6 +255,7 @@ table td.derch { background-color: #fcf8f2;
         for ($i = 1; $i <= count($fuente['codigo']); $i++) {
             $html .= '<tr><td>' . substr($fuente['descripcion'][$i], 0, 13) . '</td>';
             $html .= '<td>' . $fuente['codigo'][$i] . '</td>';
+            $html .= '<td>' . $fuente['adicional'][$i] . '</td>';
             $html .= '<td>' . substr($fuente['descripcion'][$i], 14) . '</td>';
             $html .= '<td align="right">' . $fuente['cantidad'][$i] . '</td></tr>';
         }
@@ -259,6 +263,16 @@ table td.derch { background-color: #fcf8f2;
         $html .= '<!-- END ITEMS HERE -->
 </tbody>
 </table>
+<table width="50%" style="font-family: serif;">
+<tr>
+<td class="izq">
+<p color="#A52A2A"><strong>Informacion Adicional : </strong><span color="#B8860B">';
+        $html .= $fuente['motive'] . '</span></p>
+</tr>';
+        $html .= '</table>
+</td>
+<td width="1%">&nbsp;</td>
+<td width="51%" class="izq">
 </body>
 </html>
 ';
@@ -300,22 +314,14 @@ table td.derch { background-color: #fcf8f2;
 
         $a = $this->session->get('archivos');
         $firmado = $a['firmado'];
-        $w_cabecera = $this->session->get('cabecera');
+        $w_cabecera = $this->session->get('guiacab');
         $ruc = $this->session->get('contribuyente');
         $doc1 = new DOMDocument();
         $doc1->load($firmado);
 
-        $fuente['ciudad'] = $w_cabecera['direccionComprador'];
         $stringDate = strtotime($w_cabecera['fechaDocumento']);
         $dateString = date('d/m/Y', $stringDate);
         $fuente['fechaDocumento'] = $dateString;
-        $fuente['CustomField1'] = $w_cabecera['CustomField1'];
-        $fuente['CustomField9'] = $w_cabecera['CustomField9'];
-        $fuente['CustomField11'] = $w_cabecera['CustomField11'];
-        $fuente['CustomField12'] = $w_cabecera['CustomField12'];
-        $fuente['SalesRepRef_FullName'] = $w_cabecera['SalesRepRef_FullName'];
-        $fuente['Memo'] = $w_cabecera['Memo'];
-        $fuente['TermsRef_FullName'] = $w_cabecera['TermsRef_FullName'];
         if ($w_cabecera['CustomField13'] <> "") {
             $fuente['CustomField13'] = $w_cabecera['CustomField13'];
             $fuente['CustomField14'] = $w_cabecera['CustomField14'];
@@ -323,6 +329,9 @@ table td.derch { background-color: #fcf8f2;
             $fuente['CustomField13'] = $this->session->get('fechaAutorizacion');
             $fuente['CustomField14'] = $this->session->get('numeroAutorizacion');
         }
+        
+        $fuente['motive'] = $w_cabecera['motive'];
+        
         $fuente['CustomField15'] = $w_cabecera['CustomField15'];
         $fuente['ambiente'] = $doc1->getElementsByTagName('ambiente')->item(0)->nodeValue;
         $fuente['tipoEmision'] = $doc1->getElementsByTagName('tipoEmision')->item(0)->nodeValue;
@@ -368,6 +377,19 @@ table td.derch { background-color: #fcf8f2;
                             break;
                         case 'descripcion':
                             $fuente['descripcion'][$lineas] = $child->nodeValue;
+                            break;
+                        case 'detallesAdicionales':
+                            foreach ($child->childNodes as $atributos) {
+                                switch ($atributos->nodeName) {
+                                    case 'detAdicional':
+                                        $fuente['adicional'][$lineas] = $atributos->getAttribute('valor');
+
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+                            }
                             break;
                     }
                 }

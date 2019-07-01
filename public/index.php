@@ -53,6 +53,11 @@ try {
     });
     
     $di->set(
+       'barras', function() {
+        return new Barras();
+    });
+    
+    $di->set(
        'claves', function() {
         return new Claves();
     });

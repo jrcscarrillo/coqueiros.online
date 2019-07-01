@@ -15,6 +15,7 @@
             <th>Active</th>
             <th>Qbid</th>
                 <th>Habilitar</th>
+                <th>Editar</th>
                 <th>Eliminar</th>
             </tr>
         </thead>
@@ -30,7 +31,8 @@
             <td>{{ miscodigos.email }}</td>
             <td>{{ miscodigos.active }}</td>
             <td>{{ miscodigos.qbid }}</td>
-            <td width="2%">{{ link_to("users/edit/" ~ miscodigos.id, '<i class="glyphicon glyphicon-ok"></i>', "class": "btn btn-default") }}</td>
+            <td width="2%">{{ link_to("users/habilitar/" ~ miscodigos.id, '<i class="glyphicon glyphicon-ok"></i>', "class": "btn btn-default") }}</td>
+            <td width="2%">{{ link_to("users/edit/" ~ miscodigos.id, '<i class="glyphicon glyphicon-pencil"></i>', "class": "btn btn-default") }}</td>
             <td width="2%">{{ link_to("users/delete/" ~ miscodigos.id, '<i class="glyphicon glyphicon-remove"></i>', "class": "btn btn-default") }}</td>
         </tr>
         </tbody>

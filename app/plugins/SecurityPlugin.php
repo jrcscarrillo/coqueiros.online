@@ -55,12 +55,12 @@ class SecurityPlugin extends Pegado {
         //Private area resources
         $privateResources = array(
            'invoice' => array('index', 'search', 'autorizar', 'edit', 'save', 'create', 'impresion', 'firmar'),
-           'salesorder' => array('index', 'search', 'autorizar', 'impresion', 'firmar'),
+           'guiacab' => array('index', 'search', 'productos', 'masproductos', 'delproducto', 'aprobar', 'new', 'edit', 'save', 'create', 'delete', 'autorizar', 'impresion', 'firmar'),
            'creditmemo' => array('index', 'search', 'autorizar', 'impresion', 'firmar'),
            'vendorcredit' => array('index', 'search', 'autorizar', 'impresion', 'firmar'),
            'facturas' => array('index', 'search', 'bajar', 'imprimir'),
            'imprimir' => array('index', 'search', 'bajar', 'impresion'),
-           'users' => array('index', 'search', 'edit', 'delete'),
+           'users' => array('index', 'search', 'edit', 'delete', 'habilitar', 'save'),
            'contribuyente' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete', 'select'),
            'aplicaciones' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete', 'select'),
            'appliedtosync' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete', 'select'),

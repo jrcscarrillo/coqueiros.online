@@ -36,15 +36,15 @@ class InvoiceController extends ControllerBase {
         if (count($miscodigos) == 0) {
             $this->flash->notice("El resultado de la busqueda no arrojo ninguna factura sincronizada desde el QB");
             $this->dispatcher->forward([
-               "controller" => "invoice",
-               "action" => "index"
+                "controller" => "invoice",
+                "action" => "index"
             ]);
             return;
         }
         $paginator = new Paginator([
-           'data' => $miscodigos,
-           'limit' => 10,
-           'page' => $numberPage
+            'data' => $miscodigos,
+            'limit' => 10,
+            'page' => $numberPage
         ]);
         $this->view->page = $paginator->getPaginate();
     }
@@ -60,10 +60,10 @@ class InvoiceController extends ControllerBase {
         if ($factura == false) {
             $this->flash->error("Esta factura no existe");
             return $this->dispatcher->forward(
-                  [
-                     "controller" => "invoice",
-                     "action" => "index",
-                  ]
+                            [
+                                "controller" => "invoice",
+                                "action" => "index",
+                            ]
             );
         }
 
@@ -71,10 +71,10 @@ class InvoiceController extends ControllerBase {
         $this->flash->success('Factura del QB Seleccionada || ' . $factura->RefNumber);
         $this->firmaFactura($factura);
         return $this->dispatcher->forward(
-              [
-                 "controller" => "invoice",
-                 "action" => "search",
-              ]
+                        [
+                            "controller" => "invoice",
+                            "action" => "search",
+                        ]
         );
     }
 
@@ -84,10 +84,10 @@ class InvoiceController extends ControllerBase {
         if ($factura == false) {
             $this->flash->error("Esta factura no existe");
             return $this->dispatcher->forward(
-                  [
-                     "controller" => "invoice",
-                     "action" => "index",
-                  ]
+                            [
+                                "controller" => "invoice",
+                                "action" => "index",
+                            ]
             );
         }
 
@@ -103,10 +103,10 @@ class InvoiceController extends ControllerBase {
             $this->flash->error('EN ' . $this->txt_ambiente . $mensaje['mensaje']);
         }
         return $this->dispatcher->forward(
-              [
-                 "controller" => "invoice",
-                 "action" => "search",
-              ]
+                        [
+                            "controller" => "invoice",
+                            "action" => "search",
+                        ]
         );
     }
 
@@ -116,10 +116,10 @@ class InvoiceController extends ControllerBase {
         if ($factura == false) {
             $this->flash->error("Esta factura no existe");
             return $this->dispatcher->forward(
-                  [
-                     "controller" => "invoice",
-                     "action" => "index",
-                  ]
+                            [
+                                "controller" => "invoice",
+                                "action" => "index",
+                            ]
             );
         }
 
@@ -135,17 +135,17 @@ class InvoiceController extends ControllerBase {
             }
 
             $this->dispatcher->forward([
-               'controller' => "invoice",
-               'action' => 'index',
+                'controller' => "invoice",
+                'action' => 'index',
             ]);
 
             return;
         }
         return $this->dispatcher->forward(
-              [
-                 "controller" => "invoice",
-                 "action" => "search",
-              ]
+                        [
+                            "controller" => "invoice",
+                            "action" => "search",
+                        ]
         );
     }
 
@@ -156,45 +156,45 @@ class InvoiceController extends ControllerBase {
         $compra = $arreglo->customer;
         $orden = $compra->CustomField2;
         $this->session->set('cabecera', array(
-           'TxnID' => $arreglo->TxnID,
-           'TimeCreated' => $arreglo->TimeCreated,
-           'TimeModified' => $arreglo->TimeModified,
-           'EditSequence' => $arreglo->EditSequence,
-           'numeroTransaccion' => $arreglo->TxnNumber,
-           'CustomerRef_ListID' => $arreglo->CustomerRef_ListID,
-           'razonSocialComprador' => $arreglo->CustomerRef_FullName,
-           'TermsRef_FullName' => $arreglo->TermsRef_FullName,
-           'fechaDocumento' => $arreglo->TxnDate,
-           'fechaPago' => $arreglo->DueDate,
-           'Memo' => $arreglo->Memo,
-           'numeroDocumento' => $doc['documento'],
-           'direccionComprador' => $arreglo->BillAddress_Addr1,
-           'BillAddress_City' => $arreglo->BillAddress_City,
-           'BillAddress_State' => $arreglo->BillAddress_State,
-           'BillAddress_PostalCode' => $arreglo->BillAddress_PostalCode,
-           'BillAddress_Country' => $arreglo->BillAddress_Country,
-           'SalesRepRef_FullName' => $arreglo->SalesRepRef_FullName,
-           'CustomerMsgRef_FullName' => $arreglo->CustomerMsgRef_FullName,
-           'Subtotal' => $arreglo->Subtotal,
-           'SalesTaxPercentage' => $arreglo->SalesTaxPercentage,
-           'SalesTaxTotal' => $arreglo->SalesTaxTotal,
-           'AppliedAmount' => $arreglo->AppliedAmount,
-           'BalanceRemaining' => $arreglo->BalanceRemaining,
-           'CustomField1' => $arreglo->CustomField1,
-           'CustomField2' => $orden,
-           'CustomField9' => $arreglo->CustomField9,
-           'CustomField11' => $arreglo->CustomField11,
-           'CustomField12' => $arreglo->CustomField12,
-           'CustomField13' => $arreglo->CustomField13,
-           'CustomField14' => $arreglo->CustomField14,
-           'CustomField15' => $arreglo->CustomField15
+            'TxnID' => $arreglo->TxnID,
+            'TimeCreated' => $arreglo->TimeCreated,
+            'TimeModified' => $arreglo->TimeModified,
+            'EditSequence' => $arreglo->EditSequence,
+            'numeroTransaccion' => $arreglo->TxnNumber,
+            'CustomerRef_ListID' => $arreglo->CustomerRef_ListID,
+            'razonSocialComprador' => $arreglo->CustomerRef_FullName,
+            'TermsRef_FullName' => $arreglo->TermsRef_FullName,
+            'fechaDocumento' => $arreglo->TxnDate,
+            'fechaPago' => $arreglo->DueDate,
+            'Memo' => $arreglo->Memo,
+            'numeroDocumento' => $doc['documento'],
+            'direccionComprador' => $arreglo->BillAddress_Addr1,
+            'BillAddress_City' => $arreglo->BillAddress_City,
+            'BillAddress_State' => $arreglo->BillAddress_State,
+            'BillAddress_PostalCode' => $arreglo->BillAddress_PostalCode,
+            'BillAddress_Country' => $arreglo->BillAddress_Country,
+            'SalesRepRef_FullName' => $arreglo->SalesRepRef_FullName,
+            'CustomerMsgRef_FullName' => $arreglo->CustomerMsgRef_FullName,
+            'Subtotal' => $arreglo->Subtotal,
+            'SalesTaxPercentage' => $arreglo->SalesTaxPercentage,
+            'SalesTaxTotal' => $arreglo->SalesTaxTotal,
+            'AppliedAmount' => $arreglo->AppliedAmount,
+            'BalanceRemaining' => $arreglo->BalanceRemaining,
+            'CustomField1' => $arreglo->CustomField1,
+            'CustomField2' => $orden,
+            'CustomField9' => $arreglo->CustomField9,
+            'CustomField11' => $arreglo->CustomField11,
+            'CustomField12' => $arreglo->CustomField12,
+            'CustomField13' => $arreglo->CustomField13,
+            'CustomField14' => $arreglo->CustomField14,
+            'CustomField15' => $arreglo->CustomField15
         ));
         $this->session->set('factura', array(
-           'baseImponible' => 0,
-           'valorImpuestos' => 0,
-           'valorSinImpuestos' => 0,
-           'valorDescuentos' => 0,
-           'valorTotal' => 0
+            'baseImponible' => 0,
+            'valorImpuestos' => 0,
+            'valorSinImpuestos' => 0,
+            'valorDescuentos' => 0,
+            'valorTotal' => 0
         ));
         $this->session->set('codigoImpuesto', '2');
         $this->session->set('porcentajeImpuesto', '12');
@@ -204,10 +204,10 @@ class InvoiceController extends ControllerBase {
         if ($contribuyente == false) {
             $this->flash->error("Este contribuyente no existe");
             return $this->dispatcher->forward(
-                  [
-                     "controller" => "invoice",
-                     "action" => "search",
-                  ]
+                            [
+                                "controller" => "invoice",
+                                "action" => "search",
+                            ]
             );
         }
         $rucPasa = $this->claves->registraContribuyente($contribuyente);
@@ -244,14 +244,19 @@ class InvoiceController extends ControllerBase {
 
         $part = '<div><p><strong>FACTURACION ELECTRONICA LOS COQUEIROS</strong></p><br>
            <p>Estimado(a) </p><br><p><strong>' .
-           $w_cab['razonSocialComprador'] .
-           '</strong></p><br><p>Heladerías Cofrunat Cia. Ltda.,  le informa que se ha generado su comprobante electrónico,</p><br><p><strong>' .
-           $w_con['estab'] . '-' . $w_con['punto'] . '-' . $w_cab['numeroDocumento'] . '</strong></p><br> ' .
-           '<p>que adjuntamos en formato XML de acuerdo a los requerimientos del SRI.</p><br>
+                $w_cab['razonSocialComprador'] .
+                '</strong></p><br><p>Heladerías Cofrunat Cia. Ltda.,  le informa que se ha generado su comprobante electrónico,</p><br><p><strong>' .
+                $w_con['estab'] . '-' . $w_con['punto'] . '-' . $w_cab['numeroDocumento'] . '</strong></p><br> ' .
+                '<p>que adjuntamos en formato XML de acuerdo a los requerimientos del SRI.</p><br>
          <p>Podrá revisar este y todos sus documentos electrónicos en </p><br>
          <p>https://declaraciones.sri.gob.ec/comprobantes-electronicos-internet/\r\npublico/validezComprobantes.jsf?pathMPT=Facturaci%F3n%20Electr%F3nica&actualMPT=Validez%20de%20comprobantes\r\n
-
-</p><br><br><p>Atentamente,</p><br><br>
+</p><br><br><span style="background-color: #ffff00">
+POR FAVOR, ENVÍENOS SU RETENCIÓN DENTRO DE LOS CINCO DÍAS POSTERIORES 
+A LA RECEPCIÓN DE SU FACTURA A LOS CORREOS QUE INDICAMOS A CONTINUACIÓN
+(por favor, envíela a ambos correos):</span><br>
+<span>asventas1@loscoqueiros.com asventas2@loscoqueiros.com</span><br>
+<span style="background-color: #ffff00">MUCHAS GRACIAS POR SU GENTIL COLABORACIÓN.</span><br><br>
+<br><span>Atentamente,</span><br><br>
 
 <p>Heladerías Cofrunat Cia. Ltda. </p>';
 
@@ -307,8 +312,8 @@ class InvoiceController extends ControllerBase {
             $this->flash->error("factura no existe " . $TxnID);
 
             $this->dispatcher->forward([
-               'controller' => "invoice",
-               'action' => 'index'
+                'controller' => "invoice",
+                'action' => 'index'
             ]);
             return;
         }
@@ -339,8 +344,8 @@ class InvoiceController extends ControllerBase {
             }
 
             $this->dispatcher->forward([
-               'controller' => "invoice",
-               'action' => 'index',
+                'controller' => "invoice",
+                'action' => 'index',
             ]);
 
             return;
@@ -434,12 +439,41 @@ class InvoiceController extends ControllerBase {
         $docpasa = new DOMDocument();
         $docpasa->load($pasaXML);
         $docpasa->save($salida);
+//        if (shell_exec('echo foobar') == 'foobar') {
+//            $this->flash->notice('shell_exec works');
+//        } else {
+//            $this->flash->notice('shell_exec IS NOT working');
+//        }
+//        if (!$this->checkShellCommand('ls -al > directorio.txt')) {
+//            $this->flash->notice('This command cannot be executed.');
+//        } else {
+//            shell_exec('ls -al > directorio.txt');
+//        }
+//        if (!$this->checkShellCommand('cd /home/online/public_html/ComprobantesSRI/ecuador/')) {
+//            $this->flash->notice('This command cannot be executed.');
+//        } else {
+//            shell_exec('cd /home/online/public_html/ComprobantesSRI/ecuador/');
+//        }
+//        if (!$this->checkShellCommand('./facturista.sh --sellar generado.xml hugo_xavier_bustos_neira.pfx FE2018coq > firmado.xml 2> errores.txt')) {
+//            $this->flash->notice('This command cannot be executed.');
+//        } else {
+//            shell_exec('./facturista.sh --sellar generado.xml hugo_xavier_bustos_neira.pfx FE2018coq > firmado.xml 2> errores.txt');
+//        }
         $string_shell = '/bin/bash/ /home/online/public_html/ComprobantesSRI/ecuador/arranca.sh';
         $ret = shell_exec($string_shell);
         $ret = shell_exec('/home/online/public_html/public/arranca.sh');
         $docregresa = new DOMDocument();
         $docregresa->load($regresaXML);
         $docregresa->save($firmado);
+    }
+
+    function checkShellCommand($command) {
+        $returnValue = shell_exec("$command");
+        if (empty($returnValue)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     function procesaItem($producto) {
@@ -477,10 +511,10 @@ class InvoiceController extends ControllerBase {
         $stringItem .= '<tarifa>' . $w_impuesto . '</tarifa><baseImponible>' . $out_Amount . '</baseImponible><valor>' . $out_valor . '</valor></impuesto></impuestos></detalle>';
 
         $this->session->set('factura', array(
-           'baseImponible' => $subtotal + $producto->Amount,
-           'valorImpuestos' => $subtotalImpuestos + $db_valor,
-           'valorSinImpuestos' => $subtotalSinImpuestos + $producto->Amount,
-           'valorTotal' => $valorTotal + $producto->Amount + $db_valor
+            'baseImponible' => $subtotal + $producto->Amount,
+            'valorImpuestos' => $subtotalImpuestos + $db_valor,
+            'valorSinImpuestos' => $subtotalSinImpuestos + $producto->Amount,
+            'valorTotal' => $valorTotal + $producto->Amount + $db_valor
         ));
         $w_string .= $stringItem;
         $this->session->set('stringDetalles', $w_string);

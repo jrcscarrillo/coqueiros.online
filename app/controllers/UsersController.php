@@ -54,7 +54,7 @@ class UsersController extends ControllerBase {
         $this->view->page = $paginator->getPaginate();
     }
 
-    public function editAction($id) {
+    public function habilitarAction($id) {
         if (!$this->request->isPost()) {
 
             $user = Users::findFirstByid($id);
@@ -98,7 +98,84 @@ class UsersController extends ControllerBase {
             $exp = $this->sendmail->enviaEmail($paraemail);
         }
     }
+    
+    public function editAction($id) {
+        if (!$this->request->isPost()) {
 
+            $user = Users::findFirstByid($id);
+            if (!$user) {
+                $this->flash->error("Usuario no ha sido encontrado");
+
+                $this->dispatcher->forward([
+                   'controller' => "users",
+                   'action' => 'index'
+                ]);
+
+                return;
+            }
+            $this->view->form = new UsersForm($user);            
+        }
+    }
+
+    public function saveAction()
+    {
+        if (!$this->request->isPost()) {
+            return $this->dispatcher->forward(
+                [
+                    "action"     => "index",
+                ]
+            );
+        }
+        $id = $this->request->getPost("id", "int");
+        $usuario = Users::findFirstById($id);
+        if (!$usuario) {
+            $this->flash->error("Este usuario no existe");
+
+            return $this->dispatcher->forward(
+                [
+                    "action"     => "index",
+                ]
+            );
+        }
+
+        $form = new UsersForm;
+
+        $data = $this->request->getPost();
+        if (!$form->isValid($data, $usuario)) {
+            foreach ($form->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            $this->view->form = new UsersForm($usuario);
+            return $this->dispatcher->forward(
+                [
+                    "action"     => "edit",
+                ]
+            );
+        }
+
+        if ($usuario->save() == false) {
+            foreach ($usuario->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            $this->view->form = new UsersForm($usuario);
+            return $this->dispatcher->forward(
+                [
+                    "action"     => "edit",
+                ]
+            );
+        }
+
+        $form->clear();
+
+        $this->flash->success("La informacion del usuario ha sido actualizada");
+
+        return $this->dispatcher->forward(
+            [
+                "action"     => "search",
+            ]
+        );
+    }
+    
     public function deleteAction($id) {
         if (!$this->request->isPost()) {
 

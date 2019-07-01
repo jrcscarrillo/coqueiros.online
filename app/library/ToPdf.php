@@ -12,6 +12,7 @@ class ToPdf extends componente {
         $contribuyente = $this->session->get('contribuyente');
         $fuente = $this->session->get('fuente');
         $a = $this->session->get('archivos');
+        $generador = new Picqer\Barcode\BarcodeGeneratorPNG();
         $html = '
 <html>
 <head>
@@ -69,6 +70,11 @@ table td.derch { background-color: #fcf8f2;
         font-family: Lucida Sans Unicode;
         font-size: 7pt;
 }
+
+.doce {
+        font-family: Lucida Sans Unicode;
+        font-size: 12pt;
+}
 .items td.blanktotal {
     background-color: #EEEEEE;
     border: 0.1mm solid #000000;
@@ -85,10 +91,10 @@ table td.derch { background-color: #fcf8f2;
     text-align: "." center;
 }
 
-.barcode {
-    padding: 1.5mm;
-    margin: 0;
+td .barcode {
+    padding: 1.5mm 2mm 1.5mm 12mm;
     vertical-align: top;
+    background-color: #FFFFFF;
     color: #000000;
 }
 .barcodecell {
@@ -109,15 +115,15 @@ table td.derch { background-color: #fcf8f2;
 <table width="100%" style="font-family: serif;">
 <tr>
 <td class="izq">
-<p color="#A52A2A"><strong>';
+<p color="#A52A2A" class="doce"><strong>';
         $html .= $contribuyente['razon'] . '</strong></p>
-<p color="#A52A2A"><strong>';
+<p color="#A52A2A" class="doce"><strong>';
         $html .= $contribuyente['NombreComercial'] . '</strong></p>
-<p color="#A52A2A"><strong>Direccion Matriz : </strong><span color="#B8860B">';
+<p color="#A52A2A" class="doce"><strong>Direccion Matriz : </strong></p><p class="doce"><span color="#B8860B">';
         $html .= $contribuyente['DirMatriz'] . '</span></p>
-<p color="#A52A2A"><strong>Direccion Emisor : </strong><span color="#B8860B">';
+<p color="#A52A2A" class="doce"><strong>Direccion Emisor : </strong></p><p class="doce"><span color="#B8860B">';
         $html .= $contribuyente['DirEmisor'] . '</span></p>
-<p color="#A52A2A"><strong>Obligado a llevar contabilidad : </strong><span color="#B8860B">';
+<p color="#A52A2A" class="doce"><strong>Obligado a llevar contabilidad : </strong><span color="#B8860B">';
         $html .= $contribuyente['LlevaContabilidad'] . '</span></p></td>
 </tr>';
         if ($fuente['CustomField15'] == "AUTORIZADO") {
@@ -143,8 +149,7 @@ table td.derch { background-color: #fcf8f2;
 </tr>
 
 <tr>
-<tr><td class="barcodecell"><barcode code="';
-        $html .= substr($fuente['claveAcceso'], 0, 48) . '" type="C128C" class="barcode" /></td></tr>
+<tr><td class="barcode"><img src="data:image/png;base64,' . base64_encode($generador->getBarcode($fuente['claveAcceso'], $generador::TYPE_CODE_128, 1, 60)) . '"></td></tr>
 <tr>
 <td class="clave"><span>';
 

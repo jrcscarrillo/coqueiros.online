@@ -24,7 +24,7 @@ class UsersForm extends Form
         $tipo->setFilters(array('striptags', 'string'));
         $tipo->addValidators(array(
             new PresenceOf(array(
-                'message' => 'Un nombre de pagina es requerido'
+                'message' => 'Es necesario el tipo de usuario'
             ))
         ));
         $this->add($tipo);

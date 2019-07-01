@@ -1,6 +1,6 @@
 <?php
 
-class Vehicle extends \Phalcon\Mvc\Model {
+class Route extends \Phalcon\Mvc\Model {
 
 // **********************
 // ATTRIBUTE DECLARATION
@@ -164,25 +164,17 @@ class Vehicle extends \Phalcon\Mvc\Model {
 
     public function initialize() {
         $this->setSchema("carrillo_dbaurora");
-        $this->setSource("vehicle");
+        $this->setSource("route");
+
+        $this->setup(
+           array('notNullValidations' => false)
+        );
     }
 
-    /**
-     * Allows to query a set of records that match the specified conditions
-     *
-     * @param mixed $parameters
-     * @return Vehicle[]|Vehicle|\Phalcon\Mvc\Model\ResultSetInterface
-     */
     public static function find($parameters = null) {
         return parent::find($parameters);
     }
 
-    /**
-     * Allows to query the first record that match the specified conditions
-     *
-     * @param mixed $parameters
-     * @return Vehicle|\Phalcon\Mvc\Model\ResultInterface
-     */
     public static function findFirst($parameters = null) {
         return parent::findFirst($parameters);
     }
@@ -193,7 +185,7 @@ class Vehicle extends \Phalcon\Mvc\Model {
      * @return string
      */
     public function getSource() {
-        return 'vehicle';
+        return 'route';
     }
 
 }

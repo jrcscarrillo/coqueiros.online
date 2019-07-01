@@ -62,7 +62,7 @@ class Elements extends Component {
           'any' => true
        ),
        'GuiasQB' => array(
-          'controller' => 'salesorder',
+          'controller' => 'guiacab',
           'caption' => 'GuiasQB',
           'action' => 'index',
           'any' => true
@@ -170,7 +170,7 @@ class Elements extends Component {
                   'any' => true
                ),
                'GuiasQB' => array(
-                  'controller' => 'salesorder',
+                  'controller' => 'guiacab',
                   'caption' => 'GuiasQB',
                   'action' => 'index',
                   'any' => true
@@ -238,7 +238,7 @@ class Elements extends Component {
                   'any' => true
                ),
                'GuiasQB' => array(
-                  'controller' => 'salesorder',
+                  'controller' => 'guiacab',
                   'caption' => 'GuiasQB',
                   'action' => 'index',
                   'any' => true
