@@ -1,6 +1,6 @@
 {
     "require": {
-        "mpdf/mpdf": "^7.0",
+        "mpdf/mpdf": "^8.1",
         "picqer/php-barcode-generator": "^0.3.0"
     }
 }
